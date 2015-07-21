@@ -1,0 +1,50 @@
+<% provide(:title, 'View Playlist') %>
+
+<% content_for :head do %>
+    <%= javascript_include_tag "/app/assets/javascript/track_vote.js" %>
+<% end %>
+
+<h1> <%= @playlist.display_name %> </h1>
+
+
+<div class="col-md-6">
+  <table class="table table-striped">
+
+    <thead>
+    <tr>
+      <th></th>
+      <th>Likes</th>
+      <th>Artist</th>
+      <th>Song</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @tracks.each do |track| %>
+        <%
+           cssClass = 'heart'
+           if track.liked_by_user(current_user) > 0
+             cssClass = cssClass + ' fill'
+           end
+        %>
+        <tr>
+          <td>
+            <%= link_to "", vote_path(:id => track.id), class: cssClass, method: :put, remote: true %>
+          </td>
+          <td>
+            <span class="votes-count" data-id="<%= track.id %>">
+                <%= track.get_likes %>
+            </span>
+          </td>
+          <td> <%= track.artist_name %> </td>
+          <td> <%= link_to track.display_name, track %> </td>
+
+        </tr>
+
+    <% end %>
+    </tbody>
+
+
+  </table>
+
+</div>

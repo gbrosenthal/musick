@@ -1,0 +1,177 @@
+$brand-primary: #3C9FCF;
+$brand-secondary: #863291;
+
+$brand-success: #5cb85c;
+$brand-warning: #f0ad4e;
+$brand-danger: #d9534f;
+$brand-info: #5bc0de;
+
+$gray-medium-light: #eaeaea;
+$gray-light: #777;
+
+// Import
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+@mixin box_sizing {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+// Body - Overall CSS
+body {
+  padding-top: 60px;
+  font-family: "Times New Roman", Times, serif;
+}
+
+// Font
+h1 {
+  font-family: Futura, 'Trebuchet MS', Arial, sans-serif;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 500;
+  line-height: 26.3999996185303px;
+}
+h3 {
+  font-family: Futura, 'Trebuchet MS', Arial, sans-serif;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 500;
+  line-height: 15.3999996185303px;
+}
+
+p, ul {
+  font-family: Bell, 'Trebuchet MS', Arial, sans-serif;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 400;
+  line-height: 20px;
+  font-size: 16px;
+}
+
+.center {
+  text-align: center;
+}
+
+// Navbar - Styles
+.navbar-inverse {
+  background-color: $brand-primary;
+  border-color: $brand-primary;
+  font-weight: bold;
+
+  .navbar-nav {
+    > li {
+      > a {
+        color: white;
+        &:hover {
+          color: black;
+        }
+      }
+    }
+  }
+}
+
+// Flash Style
+.alert-success {
+  background-color: rgba(72, 212, 179, 0.5);
+  border-color: $brand-primary;
+}
+
+.alert-danger {
+  background-color: rgba(217, 83, 79, 0.5);
+  border-color: $brand-danger;
+}
+
+// Button Styling
+.right-btn {
+  float: right;
+  margin-left: 5px;
+}
+
+.cancel-btn {
+  width: 100%;
+  margin-top: 3px;
+}
+
+
+.center h1 {
+  margin-bottom: 10px;
+}
+
+input {
+  height: auto !important;
+}
+
+.delete {
+  color: $brand-danger;
+}
+
+ul {
+  list-style: none;
+}
+
+
+/* microposts */
+.users {
+  list-style: none;
+  padding: 0;
+  li {
+    padding: 10px 0;
+    border-top: 1px solid #e8e8e8;
+  }
+  .name {
+    display: block;
+    margin-left: 60px;
+    img {
+      display: block;
+      padding: 5px 0;
+    }
+  }
+  .index-profile-pic {
+    float: left;
+    margin-right: 10px;
+    width: 80px;
+    height: 80px;
+  }
+}
+// Home Page
+.home {
+  text-align: center;
+  color: $brand-primary;
+  a:visited {
+    color: white;
+  }
+}
+
+.tracks {
+  list-style: none;
+  padding: 0;
+  li {
+    padding: 10px 0;
+  }
+}
+
+// Hearts
+.heart {
+  width: 25px;
+  height: 23px;
+  float: left;
+  margin-right: 5px;
+  background-image: url(image_path('heart-sprite.png'));
+  background-repeat: no-repeat;
+  background-position: 0px 0px;
+
+}
+
+//.hollow {
+//  background-position: 0px 0px;
+//}
+
+.fill {
+  background-position-x: -25px;
+}
+
+
+
+

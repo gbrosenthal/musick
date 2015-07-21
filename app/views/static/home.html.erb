@@ -1,0 +1,19 @@
+<% provide(:title, "Home") %>
+
+<div class="home">
+  <h1> Welcome Musick.af! </h1>
+
+  <br>
+
+  <p>
+    Vote Your Favorite Playlists and Songs!
+
+    <br>
+    <br>
+    <% if current_user %>
+        <% unless current_user.imported %>
+            <%= link_to "Import Spotify Library!", import_path(:id => current_user.id), class: "btn btn-lg btn-primary", method: :post %>
+        <% end %>
+    <% end %>
+  </p>
+</div>

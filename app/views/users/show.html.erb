@@ -1,0 +1,11 @@
+<% provide(:title, 'View User') %>
+
+<h1> <%= @user.display_name %> </h1>
+
+<ul>
+  <% @playlists.each do |playlist| %>
+      <li>
+        <%= link_to playlist.display_name, playlist %>
+      </li>
+  <% end %>
+</ul>
