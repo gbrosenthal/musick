@@ -11,9 +11,7 @@
     <br>
     <br>
     <% if current_user %>
-        <% unless current_user.imported %>
-            <%= link_to "Import Spotify Library!", import_path(:id => current_user.id), class: "btn btn-lg btn-primary", method: :post %>
-        <% end %>
+        <%= link_to "Import Spotify Library!", import_path(:id => current_user.id), class: "btn btn-lg btn-primary", method: :post %>
     <% end %>
   </p>
 </div>

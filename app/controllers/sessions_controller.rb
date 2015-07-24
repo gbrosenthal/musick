@@ -14,18 +14,18 @@ class SessionsController < ApplicationController
                       :spotify_hash => hash,
                       :login_expires_at => Time.now + 1.day,
                       :image => spotify_user.images.first["url"])
-      if user.save!
-        puts "user saved"
-        session[:user_id] = user.id
-        redirect_to root_path and return
-      else
-        redirect_to 'error' and return
-      end
-    else
 
-      user.update_attribute(:login_expires_at, Time.now + 1.day)
+    else
+      user.update_attributes(:login_expires_at => Time.now + 1.day,
+                             :spotify_hash => hash)
+    end
+
+    if user.save!
+      puts "user saved"
       session[:user_id] = user.id
       redirect_to root_path
+    else
+      redirect_to 'error'
     end
 
   end

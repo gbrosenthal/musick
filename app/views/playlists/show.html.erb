@@ -4,7 +4,15 @@
     <%= javascript_include_tag "/app/assets/javascript/track_vote.js" %>
 <% end %>
 
-<h1> <%= @playlist.display_name %> </h1>
+<div class="col-sm-12">
+  <h1 class="playlist-title"> <%= @playlist.display_name %> </h1>
+</div>
+
+<div class="col-sm-6">
+  <div class="col-sm-6">
+    <%= image_tag(@playlist.image, class: "playlist-pic img-rounded") %>
+  </div>
+</div>
 
 
 <div class="col-md-6">

@@ -18,28 +18,45 @@ class UsersController < ApplicationController
         unless playlist.images.blank?
           image = playlist.images.first["url"]
         end
-        bot_playlist = Playlist.new(:display_name => playlist.name,
-                                    :spotify_id => playlist.id,
-                                    :score => 1,
-                                    :user_id => current_user.id,
-                                    :image => image)
+
+        collab = playlist.collaborative ? 1 : 0
+
+        playlistHash = {:display_name => playlist.name,
+                        :score => 1,
+                        :user_id => current_user.id,
+                        :image => image,
+                        :collaborative => collab,
+                        :followers => playlist.followers['total']}
+
+        bot_playlist = Playlist.where(spotify_id: playlist.id).first
+
+        if bot_playlist
+          bot_playlist.update_attributes(playlistHash)
+        else
+          playlistHash["spotify_id"] = playlist.id
+          bot_playlist = Playlist.new(playlistHash)
+        end
+
         if bot_playlist.save
           tracks = playlist.tracks
 
           tracks.each do |track|
 
-            artist = track.artists.first
-            bot_track = Track.new(:display_name => track.name,
-                                  :artist_name => artist.name,
-                                  :spotify_id => track.id,
-                                  :score => 1,
-                                  :playlist_id => bot_playlist.id)
+            bot_track = Track.where(spotify_id: track.id, playlist_id: bot_playlist.id).first
 
-            if bot_track.save
-              puts "Track Saved"
+            unless bot_track
+              artist = track.artists.first
+              bot_track = Track.new(:display_name => track.name,
+                                    :artist_name => artist.name,
+                                    :spotify_id => track.id,
+                                    :score => 1,
+                                    :playlist_id => bot_playlist.id)
+
+              if bot_track.save
+                puts "Track Saved"
+              end
             end
           end
-
         end
 
       end
@@ -47,7 +64,7 @@ class UsersController < ApplicationController
     end
 
     current_user.update_attribute(:imported, true)
-    flash[:success] = "Added User's Library"
+    flash[:success] = "Updated User's Library"
     redirect_to :back
   end
 

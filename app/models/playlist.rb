@@ -7,5 +7,8 @@ class Playlist < ActiveRecord::Base
   validates :spotify_id, presence: true
   validates :user_id, presence: true
   validates :score, presence: true
+  validates :collaborative, presence: true
+  validates :followers, presence: true
+
 
 end
