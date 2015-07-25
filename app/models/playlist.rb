@@ -10,12 +10,12 @@ class Playlist < ActiveRecord::Base
   validates :collaborative, presence: true
   validates :followers, presence: true
 
-
-  def shorten_name
-    name = self.display_name
-    if name.length > 20
-      name = name[0...19] + "..."
-    end
-    name.titleize
+  def get_track_likes
+    TrackLike.where(playlist_id: id).count
   end
+
+  def get_likes
+    PlaylistLike.where(playlist_id: id).count
+  end
+
 end

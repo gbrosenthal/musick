@@ -22,7 +22,7 @@ $gray-light: #777;
 // Body - Overall CSS
 body {
   padding-top: 60px;
-  font-family: "Times New Roman", Times, serif;
+  font-family: Bell, 'Trebuchet MS', Arial, sans-serif;
 }
 
 // Font
@@ -31,14 +31,12 @@ h1 {
   font-style: normal;
   font-variant: normal;
   font-weight: 500;
-  line-height: 26.3999996185303px;
 }
 h3 {
   font-family: Futura, 'Trebuchet MS', Arial, sans-serif;
   font-style: normal;
   font-variant: normal;
   font-weight: 500;
-  line-height: 15.3999996185303px;
 }
 
 p, ul {
@@ -201,7 +199,10 @@ ul {
 }
 
 .playlist-name {
-  overflow: hidden;
+  max-width: 100%;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: $brand-primary;
 }
 

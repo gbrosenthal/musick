@@ -1,7 +1,17 @@
-
 <div class="col-lg-4 col-xs-6 playlist-tile-wrapper">
-  <%= link_to (image_tag((playlist.image.blank? ? image_path('m-logo.png'): playlist.image), class: "index-album-pic img-rounded")), playlist %>
+  <%= link_to (image_tag((playlist.image.blank? ? image_path('m-logo.png') : playlist.image), class: "index-album-pic img-rounded")), playlist %>
 
-  <%= link_to playlist.shorten_name, playlist, class: "playlist-name" %>
+  <div class="playlist-name">
+    <%= link_to playlist.display_name, playlist %>
+  </div>
 
+  Upvotes: <%= playlist.get_likes %>
+
+  <br>
+
+  Track Upvotes: <%= playlist.get_track_likes.to_s %>
+
+  <br>
+
+  Followers: <%= playlist.followers.to_s %>
 </div>
