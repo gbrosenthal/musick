@@ -11,4 +11,11 @@ class Playlist < ActiveRecord::Base
   validates :followers, presence: true
 
 
+  def shorten_name
+    name = self.display_name
+    if name.length > 20
+      name = name[0...19] + "..."
+    end
+    name.titleize
+  end
 end

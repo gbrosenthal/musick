@@ -1,0 +1,7 @@
+
+<div class="col-lg-4 col-xs-6 playlist-tile-wrapper">
+  <%= link_to (image_tag((playlist.image.blank? ? image_path('m-logo.png'): playlist.image), class: "index-album-pic img-rounded")), playlist %>
+
+  <%= link_to playlist.shorten_name, playlist, class: "playlist-name" %>
+
+</div>

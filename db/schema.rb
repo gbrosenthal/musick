@@ -11,7 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150724000812) do
+ActiveRecord::Schema.define(version: 20150725204138) do
+
+  create_table "playlist_likes", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "playlist_id"
+    t.integer "liked"
+  end
 
   create_table "playlists", force: :cascade do |t|
     t.string   "display_name"
@@ -29,6 +35,7 @@ ActiveRecord::Schema.define(version: 20150724000812) do
     t.integer "user_id"
     t.integer "track_id"
     t.integer "liked"
+    t.integer "playlist_id"
   end
 
   create_table "tracks", force: :cascade do |t|

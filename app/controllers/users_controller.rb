@@ -13,7 +13,7 @@ class UsersController < ApplicationController
 
     playlists.each do |playlist|
 
-      if playlist.public && playlist.owner.id == current_user.spotify_id
+      if playlist.public == true && playlist.owner.id == current_user.spotify_id
         image = ""
         unless playlist.images.blank?
           image = playlist.images.first["url"]
@@ -77,7 +77,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @playlists = Playlist.where(user_id: @user.id).order("display_name ASC")
+    @playlists = Playlist.where(user_id: @user.id).order("display_name ASC").paginate(page: params[:page])
   end
 
   # GET /users/new

@@ -10,9 +10,11 @@ class TracksController < ApplicationController
     @track_like = TrackLike.where(track_id: params[:id]).first
 
     if @track_like.blank?
+      track = Track.find(params[:id])
       @track_like = TrackLike.new(
           :user_id => current_user.id,
-          :track_id => params[:id],
+          :track_id => track.id,
+          :playlist_id => track.playlist.id,
           :liked => 1)
       @track_like.save
 

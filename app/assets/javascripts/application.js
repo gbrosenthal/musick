@@ -15,11 +15,3 @@
 //= require turbolinks
 //= require_tree .
 
-
-$(document).ready(function () {
-    $('.heart').click(function(){
-        $(this).toggleClass('fill');
-    });
-});
-
-

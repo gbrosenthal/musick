@@ -112,11 +112,12 @@ ul {
 }
 
 
-/* microposts */
+/* Users */
 .users {
   list-style: none;
   padding: 0;
   li {
+    height: 100px;
     padding: 10px 0;
     border-top: 1px solid #e8e8e8;
   }
@@ -135,6 +136,15 @@ ul {
     height: 80px;
   }
 }
+
+
+.user-show-pic {
+  margin-top: 15px;
+  width: 100%;
+  height: 100%;
+}
+
+
 // Home Page
 .home {
   text-align: center;
@@ -164,10 +174,6 @@ ul {
 
 }
 
-//.hollow {
-//  background-position: 0px 0px;
-//}
-
 .fill {
   background-position-x: -25px;
 }
@@ -183,4 +189,19 @@ ul {
   height: 100%;
 }
 
+.index-album-pic {
+  float: left;
+  margin-right: 10px;
+  width: 80px;
+  height: 80px;
+}
+
+.playlist-tile-wrapper {
+  margin-top: 15px;
+}
+
+.playlist-name {
+  overflow: hidden;
+  white-space: nowrap;
+}
 
