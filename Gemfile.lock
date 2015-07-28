@@ -155,7 +155,7 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
-    rspotify (1.14.0)
+    rspotify (1.15.0)
       omniauth-oauth2 (~> 1.1)
       rest-client (~> 1.7)
     ruby-progressbar (1.7.5)

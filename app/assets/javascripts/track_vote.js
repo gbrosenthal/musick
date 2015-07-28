@@ -1,5 +1,4 @@
 $(document).on('ready page:load', function () {
-    console.log("Document Ready");
     $('.heart').click(function(){
         $(this).toggleClass('fill');
     });

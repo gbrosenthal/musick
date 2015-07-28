@@ -1,4 +1,5 @@
 require 'json'
+require 'set'
 require 'will_paginate/array'
 
 class UsersController < ApplicationController
@@ -30,32 +31,22 @@ class UsersController < ApplicationController
 
         bot_playlist = Playlist.where(spotify_id: playlist.id).first
 
+        new_playlist = false
         if bot_playlist
           bot_playlist.update_attributes(playlistHash)
         else
+          new_playlist = true
           playlistHash["spotify_id"] = playlist.id
+          playlistHash["spotify_uri"] = playlist.uri
           bot_playlist = Playlist.new(playlistHash)
         end
 
         if bot_playlist.save
-          tracks = playlist.tracks
 
-          tracks.each do |track|
+          add_tracks(bot_playlist, playlist)
 
-            bot_track = Track.where(spotify_id: track.id, playlist_id: bot_playlist.id).first
-
-            unless bot_track
-              artist = track.artists.first
-              bot_track = Track.new(:display_name => track.name,
-                                    :artist_name => artist.name,
-                                    :spotify_id => track.id,
-                                    :score => 1,
-                                    :playlist_id => bot_playlist.id)
-
-              if bot_track.save
-                puts "Track Saved"
-              end
-            end
+          unless new_playlist
+            remove_tracks(bot_playlist, playlist)
           end
         end
 
@@ -139,4 +130,46 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:display_name, :spotify_id, :birthday, :spotify_hash)
   end
+
+  def add_tracks (bot_playlist, playlist)
+    tracks = playlist.tracks
+
+    tracks.each do |track|
+
+      bot_track = Track.where(spotify_id: track.id, playlist_id: bot_playlist.id).first
+
+      unless bot_track
+        artist = track.artists.first
+        bot_track = Track.new(:display_name => track.name,
+                              :artist_name => artist.name,
+                              :spotify_id => track.id,
+                              :score => 1,
+                              :playlist_id => bot_playlist.id,
+                              :spotify_uri => track.uri)
+
+        bot_track.save
+      end
+    end
+  end
+
+  def remove_tracks (bot_playlist, playlist)
+    bot_tracks = Track.where(playlist_id: bot_playlist.id)
+    tracks = playlist.tracks
+
+    check_set = Set.new []
+    tracks.each do |track|
+      check_set.add(track.id)
+    end
+
+    bot_tracks.each do |bot_track|
+      if check_set.include?(bot_track.spotify_id)
+        check_set.delete(bot_track.spotify_id)
+      else
+        bot_track.destroy
+      end
+    end
+
+
+  end
+
 end

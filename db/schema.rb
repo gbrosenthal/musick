@@ -11,13 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150725204138) do
+ActiveRecord::Schema.define(version: 20150727225723) do
 
   create_table "playlist_likes", force: :cascade do |t|
     t.integer "user_id"
     t.integer "playlist_id"
     t.integer "liked"
   end
+
+  add_index "playlist_likes", ["user_id", "playlist_id"], name: "index_playlist_likes_on_user_id_and_playlist_id"
 
   create_table "playlists", force: :cascade do |t|
     t.string   "display_name"
@@ -29,7 +31,10 @@ ActiveRecord::Schema.define(version: 20150725204138) do
     t.datetime "updated_at"
     t.integer  "collaborative"
     t.integer  "followers"
+    t.string   "spotify_uri"
   end
+
+  add_index "playlists", ["spotify_id"], name: "index_playlists_on_spotify_id"
 
   create_table "track_likes", force: :cascade do |t|
     t.integer "user_id"
@@ -37,6 +42,8 @@ ActiveRecord::Schema.define(version: 20150725204138) do
     t.integer "liked"
     t.integer "playlist_id"
   end
+
+  add_index "track_likes", ["user_id", "track_id"], name: "index_track_likes_on_user_id_and_track_id"
 
   create_table "tracks", force: :cascade do |t|
     t.string   "display_name"
@@ -46,7 +53,11 @@ ActiveRecord::Schema.define(version: 20150725204138) do
     t.string   "artist_name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "spotify_uri"
   end
+
+  add_index "tracks", ["spotify_id", "playlist_id"], name: "index_tracks_on_spotify_id_and_playlist_id"
+  add_index "tracks", ["spotify_id"], name: "index_tracks_on_spotify_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "display_name"
@@ -58,6 +69,7 @@ ActiveRecord::Schema.define(version: 20150725204138) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "image"
+    t.string   "spotify_uri"
   end
 
 end

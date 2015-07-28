@@ -9,6 +9,7 @@ class SessionsController < ApplicationController
 
     if user.blank?
       user = User.new(:spotify_id => spotify_user.id.to_s,
+                      :spotify_uri => spotify_user.uri,
                       :display_name => spotify_user.display_name,
                       :birthday => spotify_user.birthdate,
                       :spotify_hash => hash,
