@@ -1,0 +1,12 @@
+<%= form_for(@track_comment, html: { multipart: true }) do |f| %>
+
+
+    <%= f.hidden_field :track_id, :value => @track_comment.track_id.to_s %>
+
+
+    <div class="field">
+      <%= f.text_area :comment, placeholder: "Thoughts?" %>
+    </div>
+    <%= f.submit "Post", class: "btn btn-primary" %>
+
+<% end %>

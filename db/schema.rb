@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150727225723) do
+ActiveRecord::Schema.define(version: 20150728055835) do
 
   create_table "playlist_likes", force: :cascade do |t|
     t.integer "user_id"
@@ -35,6 +35,14 @@ ActiveRecord::Schema.define(version: 20150727225723) do
   end
 
   add_index "playlists", ["spotify_id"], name: "index_playlists_on_spotify_id"
+
+  create_table "track_comments", force: :cascade do |t|
+    t.integer "track_id"
+    t.integer "playlist_id"
+    t.integer "user_id"
+    t.integer "recipient_id"
+    t.text    "comment"
+  end
 
   create_table "track_likes", force: :cascade do |t|
     t.integer "user_id"

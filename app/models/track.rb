@@ -2,6 +2,7 @@ class Track < ActiveRecord::Base
 
   belongs_to :playlist
   has_many :track_likes, dependent: :destroy
+  has_many :track_comments, dependent: :destroy
 
   validates :display_name, presence: true
   validates :spotify_id, presence: true

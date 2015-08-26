@@ -4,6 +4,7 @@ class TracksController < ApplicationController
   before_action :set_track, only: [:show]
 
   def show
+    @track_comment = @track.track_comments.build
   end
 
   def vote

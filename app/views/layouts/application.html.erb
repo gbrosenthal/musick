@@ -10,13 +10,17 @@
 
 </head>
 <body>
-<header class="navbar navbar-fixed-top navbar-inverse">
+<nav class="navbar navbar-fixed-top navbar-inverse">
   <div class="container">
-    <ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav navbar-left">
       <li><%= link_to "Home", root_path %></li>
+    </ul>
+
+    <ul class="nav navbar-nav navbar-right">
 
       <% if current_user %>
           <li><%= link_to "Users", users_path %></li>
+          <li><%= link_to "Profile", current_user %></li>
           <li><%= link_to "Sign out", logout_path, id: "sign_out" %> </li>
       <% else %>
           <li><%= link_to "Sign In", login_path, id: "sign_in" %> </li>
@@ -24,9 +28,8 @@
 
 
     </ul>
-    </nav>
   </div>
-</header>
+</nav>
 <div class="container">
 
   <% flash.each do |message_type, message| %>

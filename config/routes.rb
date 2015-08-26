@@ -15,4 +15,6 @@ Rails.application.routes.draw do
   resources :playlists
   resources :tracks
 
+  resources :track_comments,  only: [:create, :destroy]
+
 end
