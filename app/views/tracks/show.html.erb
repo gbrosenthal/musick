@@ -1,5 +1,19 @@
-<iframe src="https://embed.spotify.com/?uri=<%= @track.spotify_uri %>" width="300" height="80" frameborder="0" allowtransparency="true"></iframe>
+<div class="col-xs-12">
+  <h3> <%= @track.display_name + " by " + @track.artist_name %> </h3>
+</div>
 
-<section class="comment_form">
-  <%= render 'comment_form' %>
-</section>
+
+<div class="col-xs-12">
+  <iframe src="http://embed.spotify.com/?uri=<%= @track.spotify_uri %>" width="300" height="80" frameborder="0" allowtransparency="true"></iframe>
+</div>
+
+<div class="col-xs-12">
+
+
+
+  <section class="comment_form">
+    <%= render 'comment_form' %>
+  </section>
+
+</div>
+

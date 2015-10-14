@@ -5,8 +5,9 @@
 
 
     <div class="field">
-      <%= f.text_area :comment, placeholder: "Thoughts?" %>
+      <%= f.text_area :comment, placeholder: "Comment on this song", class: 'comment-text-area' %>
     </div>
+
     <%= f.submit "Post", class: "btn btn-primary" %>
 
 <% end %>
