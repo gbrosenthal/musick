@@ -8,7 +8,7 @@ class TracksController < ApplicationController
     @track_comment = @track.track_comments.build
   end
 
-  def votes
+  def vote
     @track_like = TrackLike.where(track_id: params[:id], user_id: current_user.id).first
 
     if @track_like.blank?
