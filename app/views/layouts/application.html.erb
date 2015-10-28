@@ -3,9 +3,14 @@
 <head>
   <%= favicon_link_tag 'favicon.ico' %>
   <title> Musick.af </title>
-  <%= stylesheet_link_tag 'application', media: 'all',
-                          'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'application', 'https://cdn.datatables.net/1.10.9/css/dataTables.bootstrap.min.css' %>
+
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js' %>
+  <%= javascript_include_tag 'https://cdn.datatables.net/1.10.9/js/dataTables.bootstrap.min.js' %>
+
+
   <%= csrf_meta_tags %>
 
 </head>

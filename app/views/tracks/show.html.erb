@@ -9,11 +9,14 @@
 
 <div class="col-xs-12">
 
-
-
   <section class="comment_form">
     <%= render 'comment_form' %>
   </section>
+
+  <% @comments.each do |comment| %>
+      <%= comment.comment %>
+  <% end %>
+
 
 </div>
 

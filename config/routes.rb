@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   get '/auth/spotify', as: 'login'
   get '/auth/spotify/callback', to: 'sessions#create'
+  get '/test', to: 'users#test'
+
   get 'logout' => 'sessions#destroy'
 
   post 'users/:id/import', to: 'users#import', as: 'import'

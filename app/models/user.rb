@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   serialize :spotify_hash, JSON
 
+  has_many :track_comments, dependent: :destroy
+
 
   def remember
     # self.remember_token = User.new_token

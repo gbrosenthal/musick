@@ -1,22 +1,36 @@
 <% provide(:title, 'View Playlist') %>
 
 <% content_for :head do %>
-    <%= javascript_include_tag "/app/assets/javascript/track_vote.js" %>
+    <%= javascript_include_tag "/app/assets/javascript/playlist.js" %>
 <% end %>
 
+<%
+   img_url = @playlist.image
+   res = Net::HTTP.get_response(URI.parse(img_url))
+   img_url = 'm-logo-inverse.svg' unless res.code.to_f >= 200 && res.code.to_f < 400 #good codes will be betweem 200 - 399
+%>
+
+
 <div class="col-sm-12">
-  <h1 class="playlist-title"> <%= @playlist.display_name %> </h1>
+    <h1 style="padding-left: 15px;" class="playlist-title"> <%= @playlist.display_name %> </h1>
 </div>
 
-<div class="col-sm-6">
-  <div class="col-sm-6">
-    <%= image_tag(@playlist.image, class: "playlist-pic img-rounded") %>
+<div class="col-sm-4">
+  <!--<div class="col-sm-12">-->
+    <!--<%= image_tag(img_url, class: "playlist-pic img-rounded") %>-->
+  <!--</div>-->
+
+  <div class="col-xs-12">
+    <iframe src="http://embed.spotify.com/?uri=<%= @playlist.spotify_uri %>" height="380" frameborder="0" allowtransparency="true"></iframe>
   </div>
+
 </div>
 
 
-<div class="col-md-6">
-  <table class="table table-striped">
+
+<div class="col-xs-8">
+
+  <table id="playlist" class="track-table table table-hover table-bordered" cellspacing="0" width="100%">
 
     <thead>
     <tr>
@@ -24,20 +38,25 @@
       <th>Likes</th>
       <th>Artist</th>
       <th>Song</th>
+      <th>Added By</th>
     </tr>
     </thead>
 
     <tbody>
+
     <% @tracks.each do |track| %>
         <%
+           display_names = []
            cssClass = 'heart'
            if track.liked_by_user(current_user) > 0
              cssClass = cssClass + ' fill'
            end
         %>
         <tr>
-          <td>
-            <%= link_to "", vote_path(:id => track.id), class: cssClass, method: :put, remote: true %>
+          <td style="width: 25px;">
+            <div class="heart-box">
+                <%= link_to "", vote_path(:id => track.id), class: cssClass, method: :put, remote: true %>
+            </div>
           </td>
           <td>
             <span class="votes-count" data-id="<%= track.id %>">
@@ -46,13 +65,15 @@
           </td>
           <td> <%= track.artist_name %> </td>
           <td> <%= link_to track.display_name, track %> </td>
+          <td> <%= track.added_by_display_name %> </td>
+
 
         </tr>
 
     <% end %>
     </tbody>
-
-
   </table>
+
+
 
 </div>

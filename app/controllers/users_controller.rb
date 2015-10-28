@@ -7,6 +7,11 @@ class UsersController < ApplicationController
   before_action :logged_in
   before_action :set_user, only: [:import, :show, :edit, :update, :destroy]
 
+  def test
+    track = Track.first
+    render html: track.get_added_by
+  end
+
   # POST /
   def import
     spotify_user = RSpotify::User.new(current_user.spotify_hash)
@@ -133,10 +138,21 @@ class UsersController < ApplicationController
 
   def add_tracks (bot_playlist, playlist)
     tracks = playlist.tracks
+    added_by_array = playlist.tracks_added_by
 
+    display_names = {}
     tracks.each do |track|
 
       bot_track = Track.where(spotify_id: track.id, playlist_id: bot_playlist.id).first
+      user_uri = added_by_array[track.id].id
+
+      unless display_names[user_uri]
+        user = RSpotify::User.find(user_uri)
+        display_names[user_uri] = user.display_name
+      end
+
+      display_user_name = display_names[user_uri]
+
 
       unless bot_track
         artist = track.artists.first
@@ -145,7 +161,10 @@ class UsersController < ApplicationController
                               :spotify_id => track.id,
                               :score => 1,
                               :playlist_id => bot_playlist.id,
-                              :spotify_uri => track.uri)
+                              :spotify_uri => track.uri,
+                              :added_by_uri => user_uri,
+                              :added_by_display_name => display_user_name
+        )
 
         bot_track.save
       end

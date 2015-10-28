@@ -2,6 +2,14 @@ $(document).on('ready page:load', function () {
     $('.heart').click(function(){
         $(this).toggleClass('fill');
     });
+
+    $('#playlist').DataTable({
+        "columns": [
+            {"orderable": false },
+            null, null, null, null
+        ],
+        "order": [[ 1, "desc" ]]
+    });
 });
 
 $(document).ajaxSuccess(function (event, xhr, settings ) {

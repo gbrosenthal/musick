@@ -5,6 +5,7 @@ class TracksController < ApplicationController
 
   def show
     @track_comment = @track.track_comments.build
+    @comments = @track.track_comments
   end
 
   def vote
