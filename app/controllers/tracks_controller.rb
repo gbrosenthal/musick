@@ -4,11 +4,11 @@ class TracksController < ApplicationController
   before_action :set_track, only: [:show]
 
   def show
-    @track_comment = @track.track_comments.build
     @comments = @track.track_comments
+    @track_comment = @track.track_comments.build
   end
 
-  def vote
+  def votes
     @track_like = TrackLike.where(track_id: params[:id], user_id: current_user.id).first
 
     if @track_like.blank?

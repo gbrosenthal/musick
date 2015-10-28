@@ -53,6 +53,13 @@ p, ul {
   text-align: center;
 }
 
+.navbar-brand {
+  color: white !important;
+  &:hover {
+    color: black !important;
+  }
+}
+
 // Navbar - Styles
 .navbar-inverse {
   background-color: $brand-primary;
@@ -74,12 +81,14 @@ p, ul {
 // Flash Style
 .alert-success {
   background-color: $brand-success;
-  border-color: $brand-success;
+  border-color: $brand-primary;
+  color: white;
 }
 
 .alert-danger {
   background-color: $brand-danger;
   border-color: $brand-danger;
+  color: white;
 }
 
 // Button Styling
@@ -225,6 +234,15 @@ ul {
 // show track
 .comment-text-area {
   resize: none;
-  width: 300px;
+  width: 100%;
+}
+
+.comments {
+  width: 100%;
+}
+
+//comment form 
+.comment_form {
+  margin-top: 10px;;
 }
 

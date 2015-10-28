@@ -7,7 +7,7 @@ class TrackComment < ActiveRecord::Base
   validates :playlist_id, presence: true
   validates :user_id, presence: true
   validates :recipient_id, presence: true
-  validates :comment, presence: true
+  validates :text, presence: true
 
 
 end

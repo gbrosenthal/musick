@@ -9,7 +9,7 @@ class TrackCommentsController < ApplicationController
                                       playlist_id: playlist.id,
                                       user_id: current_user.id,
                                       recipient_id: playlist.user_id,
-                                      comment: track_comment_params[:comment])
+                                      text: track_comment_params[:text])
 
 
     if @track_comment.save
@@ -21,7 +21,7 @@ class TrackCommentsController < ApplicationController
   private
 
   def track_comment_params
-    params.require(:track_comment).permit(:track_id, :comment)
+    params.require(:track_comment).permit(:track_id, :text)
   end
 
 

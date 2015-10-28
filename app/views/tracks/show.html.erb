@@ -1,22 +1,37 @@
-<div class="col-xs-12">
-  <h3> <%= @track.display_name + " by " + @track.artist_name %> </h3>
+<div class="col-xs-6 col-xs-offset-3">
+  <h3>
+    "<%= @track.display_name %>"
+    by <%= @track.artist_name %>
+    <br>
+    <div style="margin-top: 10px">
+        Added by <%= @track.added_by_display_name %>
+    </div>
+  </h3>
+
 </div>
 
 
-<div class="col-xs-12">
-  <iframe src="http://embed.spotify.com/?uri=<%= @track.spotify_uri %>" width="300" height="80" frameborder="0" allowtransparency="true"></iframe>
+
+<div class="col-xs-12"></div>
+
+<div class="col-xs-6 col-xs-offset-3">
+  <iframe src="http://embed.spotify.com/?uri=<%= @track.spotify_uri %>" width="100%" height="80" frameborder="0" allowtransparency="true"></iframe>
 </div>
 
-<div class="col-xs-12">
+<div class="col-xs-6 col-xs-offset-3">
+  <div class="comments">
+  <% @comments.each do |comment| if comment.text %>
+          <%= link_to comment.user.display_name, comment.user, class: "name" %>
+
+          <%= comment.text %>
+          <br>
+
+      <% end end %>
+  </div>
 
   <section class="comment_form">
     <%= render 'comment_form' %>
   </section>
-
-  <% @comments.each do |comment| %>
-      <%= comment.comment %>
-  <% end %>
-
-
 </div>
+
 
