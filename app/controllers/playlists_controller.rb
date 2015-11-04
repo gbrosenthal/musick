@@ -20,5 +20,4 @@ class PlaylistsController < ApplicationController
     params.require(:playlist).permit(:count)
   end
 
-
 end

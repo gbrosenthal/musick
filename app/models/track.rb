@@ -10,6 +10,10 @@ class Track < ActiveRecord::Base
   validates :score, presence: true
   validates :artist_name, presence: true
 
+  attr_accessor :added_by
+
+  after_find :set_added_by
+
 
   def get_likes
     TrackLike.where(track_id: self.id, liked: 1).count
@@ -18,6 +22,10 @@ class Track < ActiveRecord::Base
   def liked_by_user(user)
     result = TrackLike.where(track_id: self.id, liked: 1, user_id: user.id).first
     result.blank? ? 0 : 1
+  end
+
+  def set_added_by
+    self.added_by = User.find_by_spotify_id self.added_by_uid
   end
 
 end

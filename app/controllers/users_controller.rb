@@ -5,19 +5,21 @@ require 'will_paginate/array'
 class UsersController < ApplicationController
 
   before_action :logged_in
-  before_action :set_user, only: [:import, :show, :edit, :update, :destroy]
+  before_action :set_user, only: [:import, :import_playlists, :show, :edit, :update, :destroy]
 
-  def test
-    track = Track.first
-    render html: track.get_added_by
-  end
-
-  # POST /
+  # GET /users/id/import
   def import
     spotify_user = RSpotify::User.new(current_user.spotify_hash)
-    playlists = spotify_user.playlists
+    @playlists = spotify_user.playlists
+  end
 
-    playlists.each do |playlist|
+  def import_playlists
+    playlist_ids = params[:playlist_ids]
+    user_id = @user.spotify_id
+
+    playlist_ids.each do |playlist_id|
+
+      playlist = RSpotify::Playlist.find(user_id, playlist_id)
 
       if playlist.public == true && playlist.owner.id == current_user.spotify_id
         image = ""
@@ -59,19 +61,19 @@ class UsersController < ApplicationController
 
     end
 
+    current_user.update_attribute(:stored_playlists, playlist_ids)
     current_user.update_attribute(:imported, true)
     flash[:success] = "Updated User's Library"
-    redirect_to :back
+    redirect_to current_user
   end
-
   # GET /users
   # GET /users.json
   def index
     @users = User.all.paginate(page: params[:page])
   end
 
-  # GET /users/1
-  # GET /users/1.json
+  # GET /users/id
+  # GET /users/id.json
   def show
     @playlists = Playlist.where(user_id: @user.id).order("display_name ASC").paginate(page: params[:page])
   end
@@ -79,50 +81,6 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
-  end
-
-  # GET /users/1/edit
-  def edit
-  end
-
-  # POST /users
-  # POST /users.json
-  def create
-    @user = User.new(user_params)
-
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /users/1
-  # PATCH/PUT /users/1.json
-  def update
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /users/1
-  # DELETE /users/1.json
-  def destroy
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
-    end
   end
 
   private
@@ -162,7 +120,7 @@ class UsersController < ApplicationController
                               :score => 1,
                               :playlist_id => bot_playlist.id,
                               :spotify_uri => track.uri,
-                              :added_by_uri => user_uri,
+                              :added_by_uid => user_uri,
                               :added_by_display_name => display_user_name
         )
 

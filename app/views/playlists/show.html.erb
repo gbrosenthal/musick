@@ -11,22 +11,18 @@
 %>
 
 
-<div class="col-sm-12">
+<div class="col-xs-12">
     <h1 style="padding-left: 15px;" class="playlist-title"> <%= @playlist.display_name %> </h1>
 </div>
 
-<div class="col-sm-4">
+<div class="col-sm-4 col-xs-12">
     <!--<%= image_tag(img_url, class: "playlist-pic img-rounded") %>-->
-
-  <div class="col-xs-12">
-    <iframe src="http://embed.spotify.com/?uri=<%= @playlist.spotify_uri %>" height="380" frameborder="0" allowtransparency="true"></iframe>
-  </div>
-
+    <iframe src="http://embed.spotify.com/?uri=<%= @playlist.spotify_uri %>" width="100%"  height="380" frameborder="0" allowtransparency="true"></iframe>
 </div>
 
 
 
-<div class="col-xs-8">
+<div class="col-sm-8 col-xs-12">
 
   <table id="playlist" class="track-table table table-hover table-bordered" cellspacing="0" width="100%">
 
@@ -63,8 +59,7 @@
           </td>
           <td> <%= track.artist_name %> </td>
           <td> <%= link_to track.display_name, track %> </td>
-          <td> <%= track.added_by_display_name %> </td>
-
+          <td> <%= (track.added_by.blank?)? track.added_by_display_name: (link_to track.added_by_display_name, track.added_by) %> </td>
 
         </tr>
 

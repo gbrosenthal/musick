@@ -1,0 +1,30 @@
+<% provide(:title, 'Import') %>
+
+<div class="col-xs-offset-1 col-xs-10">
+  <h2>
+    Select Playlists to Import
+  </h2>
+</div>
+
+
+<%= form_tag do %>
+
+    <% @playlists.each do |playlist| %>
+        <% if playlist.public == true && playlist.owner.id == current_user.spotify_id %>
+            <div class="form-group">
+              <div class="col-xs-offset-1 col-xs-10">
+                  <%= check_box_tag "playlist_ids[]", playlist.id, (current_user.stored_playlists.include? playlist.id) %>
+                  <b><%= playlist.name %> </b>: <%= playlist.total.to_s%> tracks
+              </div>
+            </div>
+
+        <% end %>
+    <% end %>
+
+    <div class="col-xs-10 col-xs-offset-1">
+      <button type="submit" class="btn btn-default">Import</button>
+    </div>
+
+<% end %>
+
+

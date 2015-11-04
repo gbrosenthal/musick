@@ -8,13 +8,15 @@ Rails.application.routes.draw do
 
   get 'logout' => 'sessions#destroy'
 
-  post 'users/:id/import', to: 'users#import', as: 'import'
+  get 'users/:id/import', to: 'users#import', as: 'import'
+  post 'users/:id/import', to: 'users#import_playlists', as: 'playlists_import'
   put 'tracks/:id/vote', to: 'tracks#vote', as: 'vote'
 
   resources :users
   resources :sessions, only: [:create, :destroy]
 
   resources :playlists
+
   resources :tracks
 
   resources :track_comments,  only: [:create, :destroy]

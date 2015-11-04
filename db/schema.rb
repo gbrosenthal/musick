@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151028182313) do
+ActiveRecord::Schema.define(version: 20151104200627) do
 
   create_table "playlist_likes", force: :cascade do |t|
     t.integer "user_id"
@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 20151028182313) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "spotify_uri"
-    t.string   "added_by_uri"
+    t.string   "added_by_uid"
     t.string   "added_by_display_name"
   end
 
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 20151028182313) do
     t.datetime "updated_at"
     t.text     "image"
     t.string   "spotify_uri"
+    t.string   "stored_playlists"
   end
 
 end

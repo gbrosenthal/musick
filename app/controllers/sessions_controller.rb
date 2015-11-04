@@ -14,7 +14,8 @@ class SessionsController < ApplicationController
                       :birthday => spotify_user.birthdate,
                       :spotify_hash => hash,
                       :login_expires_at => Time.now + 1.day,
-                      :image => spotify_user.images.first["url"])
+                      :image => spotify_user.images.first["url"],
+                      :stored_playlists => [])
 
     else
       user.update_attributes(:login_expires_at => Time.now + 1.day,

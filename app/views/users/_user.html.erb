@@ -1,8 +1,7 @@
 <li>
 
   <%= link_to (image_tag((user.image.blank? ? image_path('m-logo.png') : user.image), class: "index-profile-pic img-rounded")), user %>
-
-
   <%= link_to user.display_name, user, class: "name" %>
+  Playlists: <%= user.playlists.length %>
 
 </li>
