@@ -28,6 +28,8 @@ gem 'will_paginate-bootstrap'
 # Bootstrap
 gem 'bootstrap-sass'
 
+gem 'rails_autolink'
+
 gem 'rspotify'
 
 

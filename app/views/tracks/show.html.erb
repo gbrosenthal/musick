@@ -23,7 +23,7 @@
   <% @comments.each do |comment| if comment.text %>
           <%= link_to comment.user.display_name, comment.user, class: "name" %>
 
-          <%= comment.text %>
+          <%= auto_link(comment.text) %>
           <br>
 
       <% end end %>
